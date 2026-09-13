@@ -75,18 +75,18 @@
             color: #cc0000;
         }
 
-        /* ===== HERO (IMAGEM DE FUNDO + CONTEÚDO EMBAIXO) ===== */
+        /* ===== HERO (IMAGEM DE FUNDO AJUSTADA PARA A ESQUERDA) ===== */
         .hero {
-            /* Gradiente suave em cima e escuro embaixo para dar contraste ao texto */
             background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.85)), url('survive-banner.jpg');
             background-size: cover;
-            background-position: center top;
+            /* 👇 AJUSTE AQUI: 35% move para a esquerda. Diminua para mover mais. */
+            background-position: 35% top;
             background-repeat: no-repeat;
             background-attachment: fixed;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: flex-end; /* Conteúdo vai para o final (embaixo) */
+            justify-content: flex-end;
             align-items: center;
             text-align: center;
             padding: 20px 20px 80px 20px;
@@ -376,6 +376,7 @@
 
             .hero {
                 background-attachment: scroll;
+                background-position: 30% top; /* 👈 No celular move mais para a esquerda */
                 padding: 20px 20px 50px 20px;
             }
 
@@ -398,11 +399,10 @@
         </nav>
     </header>
 
-    <!-- ===== HERO (SEM O H1, SÓ TEXTO EMBAIXO) ===== -->
+    <!-- ===== HERO ===== -->
     <section class="hero">
         <p class="subtitle">LUTE • EXPLORE • SOBREVIVA</p>
         <p class="tagline">O mundo não é mais o mesmo. Enfrente o caos, colete recursos e lute pela sua sobrevivência em um apocalipse implacável.</p>
-        <!-- Substitua o "#" pelo link da Steam quando tiver -->
         <a href="#" class="btn-steam">Baixar na Steam</a>
     </section>
 
