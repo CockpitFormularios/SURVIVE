@@ -6,7 +6,7 @@
     <title>SURVIVE - Jogo de Sobrevivência para PC</title>
     <meta name="description" content="SURVIVE é um jogo de sobrevivência pós-apocalíptico para PC. Lute, explore e sobreviva em um mundo hostil.">
     <style>
-        /* ===== RESET E CONFIGURAÇÕES GLOBAIS ===== */
+        /* ===== RESET ===== */
         * {
             margin: 0;
             padding: 0;
@@ -21,9 +21,63 @@
             overflow-x: hidden;
         }
 
-        /* ===== SEÇÃO PRINCIPAL (HERO) ===== */
+        /* ===== ANIMAÇÕES ===== */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 4px 20px rgba(204, 0, 0, 0.6); }
+            50% { box-shadow: 0 4px 35px rgba(255, 0, 0, 0.9); }
+        }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 15px 40px;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(204, 0, 0, 0.3);
+        }
+
+        .navbar .logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #ffffff;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        .navbar .logo span {
+            color: #cc0000;
+        }
+
+        .navbar nav a {
+            color: #cccccc;
+            text-decoration: none;
+            margin-left: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+
+        .navbar nav a:hover {
+            color: #cc0000;
+        }
+
+        /* ===== HERO ===== */
         .hero {
-            /* IMPORTANTE: Substitua 'survive-banner.JPG' pelo nome exato do arquivo da sua imagem */
+            /* ✅ IMAGEM AJUSTADA COM O NOME CORRETO */
             background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.95)), url('survive-banner.JPG');
             background-size: cover;
             background-position: center;
@@ -35,12 +89,11 @@
             align-items: center;
             text-align: center;
             padding: 20px;
-            position: relative;
+            animation: fadeInUp 1.2s ease;
         }
 
         .hero h1 {
             font-size: clamp(3rem, 10vw, 7rem);
-            margin: 0;
             text-transform: uppercase;
             letter-spacing: 8px;
             text-shadow: 4px 4px 20px rgba(0,0,0,1);
@@ -48,7 +101,7 @@
             color: #ffffff;
         }
 
-        .hero p {
+        .hero .subtitle {
             font-size: clamp(1rem, 2.5vw, 1.8rem);
             margin-top: 15px;
             color: #ffcc00;
@@ -57,7 +110,14 @@
             text-shadow: 2px 2px 8px rgba(0,0,0,0.9);
         }
 
-        /* ===== BOTÃO PRINCIPAL ===== */
+        .hero .tagline {
+            font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+            color: #cccccc;
+            max-width: 700px;
+            margin-top: 25px;
+            line-height: 1.7;
+        }
+
         .btn-steam {
             display: inline-block;
             margin-top: 40px;
@@ -71,31 +131,57 @@
             letter-spacing: 2px;
             border-radius: 4px;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 20px rgba(204, 0, 0, 0.6);
+            animation: pulse 3s infinite;
             border: 2px solid transparent;
         }
 
         .btn-steam:hover {
             background-color: #ff0000;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 30px rgba(255, 0, 0, 0.8);
+            transform: translateY(-3px) scale(1.05);
             border-color: #ffffff;
+            animation: none;
         }
 
-        /* ===== SEÇÃO DE RECURSOS ===== */
+        /* ===== SEÇÕES ===== */
+        section {
+            padding: 100px 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            color: #ffcc00;
+            text-transform: uppercase;
+            font-size: clamp(1.5rem, 3vw, 2.2rem);
+            letter-spacing: 4px;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: #cc0000;
+            margin: 20px auto 0;
+        }
+
+        /* ===== RECURSOS ===== */
+        .features-section {
+            background-color: #0d0d0d;
+        }
+
         .features {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 25px;
-            padding: 80px 40px;
-            background-color: #0d0d0d;
             max-width: 1400px;
             margin: 0 auto;
         }
 
         .feature-item {
             text-align: center;
-            padding: 30px 20px;
+            padding: 35px 25px;
             background: linear-gradient(145deg, #1a1a1a, #0f0f0f);
             border-radius: 10px;
             border-bottom: 3px solid #cc0000;
@@ -104,38 +190,31 @@
 
         .feature-item:hover {
             transform: translateY(-8px);
-            box-shadow: 0 10px 25px rgba(204, 0, 0, 0.3);
+            box-shadow: 0 10px 30px rgba(204, 0, 0, 0.4);
+        }
+
+        .feature-item .icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
         }
 
         .feature-item h3 {
             color: #ffcc00;
             text-transform: uppercase;
-            font-size: 1.05rem;
-            letter-spacing: 1px;
+            font-size: 1rem;
+            letter-spacing: 1.5px;
             margin-bottom: 12px;
         }
 
         .feature-item p {
             font-size: 0.9rem;
             color: #b0b0b0;
-            line-height: 1.5;
+            line-height: 1.6;
         }
 
-        /* ===== SEÇÃO DE TRAILER ===== */
+        /* ===== TRAILER ===== */
         .trailer-section {
-            text-align: center;
-            padding: 80px 20px;
             background-color: #000;
-            border-top: 1px solid #1a1a1a;
-            border-bottom: 1px solid #1a1a1a;
-        }
-
-        .trailer-section h2 {
-            color: #ffcc00;
-            text-transform: uppercase;
-            font-size: 2rem;
-            letter-spacing: 3px;
-            margin-bottom: 40px;
         }
 
         .trailer-container {
@@ -144,7 +223,7 @@
             aspect-ratio: 16 / 9;
             border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 0 40px rgba(204, 0, 0, 0.4);
+            box-shadow: 0 0 50px rgba(204, 0, 0, 0.5);
         }
 
         .trailer-container iframe {
@@ -153,59 +232,41 @@
             border: none;
         }
 
-        /* ===== SEÇÃO SOBRE O JOGO ===== */
+        /* ===== SOBRE ===== */
         .about-section {
-            padding: 80px 20px;
             max-width: 900px;
             margin: 0 auto;
             text-align: center;
         }
 
-        .about-section h2 {
-            color: #ffcc00;
-            text-transform: uppercase;
-            font-size: 2rem;
-            letter-spacing: 3px;
-            margin-bottom: 30px;
-        }
-
         .about-section p {
             font-size: 1.1rem;
-            line-height: 1.9;
+            line-height: 2;
             color: #cccccc;
             margin-bottom: 20px;
         }
 
         .about-section strong {
             color: #cc0000;
+            font-weight: 700;
         }
 
-        /* ===== REQUISITOS DO SISTEMA ===== */
-        .sys-req {
-            padding: 80px 20px;
-            max-width: 1000px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .sys-req h2 {
-            color: #ffcc00;
-            text-transform: uppercase;
-            font-size: 2rem;
-            letter-spacing: 3px;
-            margin-bottom: 40px;
+        /* ===== REQUISITOS ===== */
+        .sys-req-section {
+            background-color: #0d0d0d;
         }
 
         .req-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
-            text-align: left;
+            max-width: 1000px;
+            margin: 0 auto;
         }
 
         .req-card {
             background: linear-gradient(145deg, #1a1a1a, #0f0f0f);
-            padding: 30px;
+            padding: 35px;
             border-radius: 10px;
             border-left: 4px solid #cc0000;
         }
@@ -215,20 +276,29 @@
             text-transform: uppercase;
             font-size: 1.2rem;
             margin-bottom: 20px;
-            padding-bottom: 12px;
+            padding-bottom: 15px;
             border-bottom: 1px solid #333;
             letter-spacing: 2px;
         }
 
         .req-card ul {
             list-style: none;
-            padding: 0;
         }
 
         .req-card li {
             font-size: 0.95rem;
             color: #cccccc;
-            line-height: 2;
+            line-height: 2.2;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .req-card li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #cc0000;
+            font-weight: bold;
         }
 
         .req-card li strong {
@@ -236,26 +306,48 @@
             font-weight: 600;
         }
 
+        /* ===== CTA FINAL ===== */
+        .cta-final {
+            text-align: center;
+            background: linear-gradient(135deg, #0d0d0d, #1a0000);
+            padding: 100px 20px;
+            border-top: 1px solid #cc0000;
+            border-bottom: 1px solid #cc0000;
+        }
+
+        .cta-final h2 {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+        }
+
+        .cta-final p {
+            color: #cccccc;
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+        }
+
         /* ===== RODAPÉ ===== */
         footer {
             text-align: center;
-            padding: 40px 20px;
+            padding: 50px 20px;
             background-color: #000;
-            border-top: 1px solid #1a1a1a;
         }
 
         footer p {
             font-size: 0.85rem;
             color: #666;
             letter-spacing: 1px;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         .social-links {
             display: flex;
             justify-content: center;
-            gap: 25px;
-            margin-top: 20px;
+            gap: 30px;
+            flex-wrap: wrap;
         }
 
         .social-links a {
@@ -266,99 +358,63 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             transition: color 0.3s ease;
+            padding: 10px 15px;
+            border: 1px solid #333;
+            border-radius: 4px;
         }
 
         .social-links a:hover {
             color: #cc0000;
+            border-color: #cc0000;
         }
 
-        /* ===== RESPONSIVIDADE PARA CELULAR ===== */
+        /* ===== RESPONSIVO ===== */
         @media (max-width: 768px) {
+            .navbar {
+                padding: 12px 20px;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .navbar nav a {
+                margin: 0 10px;
+                font-size: 0.8rem;
+            }
+
             .hero {
                 background-attachment: scroll;
             }
 
-            .hero h1 {
-                letter-spacing: 4px;
-            }
-
-            .hero p {
-                letter-spacing: 2px;
-            }
-
-            .btn-steam {
-                padding: 15px 35px;
-                font-size: 1rem;
-            }
-
-            .features {
-                padding: 50px 20px;
-            }
-
-            .trailer-section h2,
-            .about-section h2,
-            .sys-req h2 {
-                font-size: 1.5rem;
-            }
-
-            .social-links {
-                flex-direction: column;
-                gap: 12px;
+            section {
+                padding: 60px 20px;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- ===== SEÇÃO PRINCIPAL (HERO) ===== -->
-    <header class="hero">
-        <h1>SURVIVE</h1>
-        <p>LUTE • EXPLORE • SOBREVIVA</p>
-        <!-- IMPORTANTE: Substitua o "#" pelo link da sua página na Steam -->
-        <a href="#" class="btn-steam">Baixar na Steam</a>
+    <!-- ===== NAVBAR ===== -->
+    <header class="navbar">
+        <div class="logo">SUR<span>VIVE</span></div>
+        <nav>
+            <a href="#sobre">Sobre</a>
+            <a href="#recursos">Recursos</a>
+            <a href="#trailer">Trailer</a>
+            <a href="#requisitos">Requisitos</a>
+        </nav>
     </header>
 
-    <!-- ===== SEÇÃO DE RECURSOS ===== -->
-    <section class="features">
-        <div class="feature-item">
-            <h3>Procure Recursos</h3>
-            <p>Sobreviva coletando itens essenciais em um mundo hostil.</p>
-        </div>
-        <div class="feature-item">
-            <h3>Construa sua Base</h3>
-            <p>Proteja-se dos perigos e crie seu refúgio seguro.</p>
-        </div>
-        <div class="feature-item">
-            <h3>Equipe-se</h3>
-            <p>Encontre armas, armaduras e equipamentos de sobrevivência.</p>
-        </div>
-        <div class="feature-item">
-            <h3>Explore o Mundo</h3>
-            <p>Descubra os segredos sombrios do apocalipse.</p>
-        </div>
-        <div class="feature-item">
-            <h3>Enfrente os Perigos</h3>
-            <p>Lute pela sua vida a cada passo que der.</p>
-        </div>
+    <!-- ===== HERO ===== -->
+    <section class="hero">
+        <h1>SURVIVE</h1>
+        <p class="subtitle">LUTE • EXPLORE • SOBREVIVA</p>
+        <p class="tagline">O mundo não é mais o mesmo. Enfrente o caos, colete recursos e lute pela sua sobrevivência em um apocalipse implacável.</p>
+        <a href="#" class="btn-steam">Baixar na Steam</a>
     </section>
 
-    <!-- ===== SEÇÃO DE TRAILER ===== -->
-    <section class="trailer-section">
-        <h2>Assista ao Trailer</h2>
-        <div class="trailer-container">
-            <!-- IMPORTANTE: Substitua "SEU_VIDEO_AQUI" pelo ID do seu vídeo no YouTube -->
-            <!-- Exemplo: se o link é youtube.com/watch?v=abc123, coloque apenas "abc123" -->
-            <iframe src="https://www.youtube.com/embed/SEU_VIDEO_AQUI" 
-                    title="Trailer SURVIVE" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen>
-            </iframe>
-        </div>
-    </section>
-
-    <!-- ===== SEÇÃO SOBRE O JOGO ===== -->
-    <section class="about-section">
-        <h2>Sobre o Jogo</h2>
+    <!-- ===== SOBRE ===== -->
+    <section id="sobre" class="about-section">
+        <h2 class="section-title">Sobre o Jogo</h2>
         <p>
             O mundo como você conhecia <strong>acabou</strong>. Cidades devastadas, recursos escassos 
             e o perigo espreita em cada esquina. Em <strong>SURVIVE</strong>, você é um dos últimos 
@@ -371,9 +427,53 @@
         </p>
     </section>
 
-    <!-- ===== SEÇÃO DE REQUISITOS DO SISTEMA ===== -->
-    <section class="sys-req">
-        <h2>Requisitos do Sistema</h2>
+    <!-- ===== RECURSOS ===== -->
+    <section id="recursos" class="features-section">
+        <h2 class="section-title">Recursos do Jogo</h2>
+        <div class="features">
+            <div class="feature-item">
+                <div class="icon">🍖</div>
+                <h3>Procure Recursos</h3>
+                <p>Sobreviva coletando itens essenciais em um mundo hostil.</p>
+            </div>
+            <div class="feature-item">
+                <div class="icon">🏠</div>
+                <h3>Construa sua Base</h3>
+                <p>Proteja-se dos perigos e crie seu refúgio seguro.</p>
+            </div>
+            <div class="feature-item">
+                <div class="icon">🎒</div>
+                <h3>Equipe-se</h3>
+                <p>Encontre armas, armaduras e equipamentos de sobrevivência.</p>
+            </div>
+            <div class="feature-item">
+                <div class="icon">🗺️</div>
+                <h3>Explore o Mundo</h3>
+                <p>Descubra os segredos sombrios do apocalipse.</p>
+            </div>
+            <div class="feature-item">
+                <div class="icon">💀</div>
+                <h3>Enfrente os Perigos</h3>
+                <p>Lute pela sua vida a cada passo que der.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== TRAILER ===== -->
+    <section id="trailer" class="trailer-section">
+        <h2 class="section-title">Assista ao Trailer</h2>
+        <div class="trailer-container">
+            <iframe src="https://www.youtube.com/embed/SEU_VIDEO_AQUI" 
+                    title="Trailer SURVIVE" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+            </iframe>
+        </div>
+    </section>
+
+    <!-- ===== REQUISITOS ===== -->
+    <section id="requisitos" class="sys-req-section">
+        <h2 class="section-title">Requisitos do Sistema</h2>
         <div class="req-grid">
             <div class="req-card">
                 <h3>Mínimos</h3>
@@ -400,11 +500,17 @@
         </div>
     </section>
 
+    <!-- ===== CTA FINAL ===== -->
+    <section class="cta-final">
+        <h2>Pronto para Sobreviver?</h2>
+        <p>Baixe agora e comece sua jornada em um mundo implacável.</p>
+        <a href="#" class="btn-steam">Baixar na Steam</a>
+    </section>
+
     <!-- ===== RODAPÉ ===== -->
     <footer>
         <p>&copy; 2026 SURVIVE. Todos os direitos reservados.</p>
         <div class="social-links">
-            <!-- IMPORTANTE: Substitua o "#" pelos links das suas redes sociais -->
             <a href="#">Discord</a>
             <a href="#">Twitter / X</a>
             <a href="#">Instagram</a>
