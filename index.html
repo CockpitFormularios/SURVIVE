@@ -402,8 +402,7 @@
     <section class="hero">
         <p class="subtitle">LUTE • EXPLORE • SOBREVIVA</p>
         <p class="tagline">O mundo não é mais o mesmo. Enfrente o caos, colete recursos e lute pela sua sobrevivência em um apocalipse implacável.</p>
-        <!-- Botão de download (será atualizado automaticamente pelo script) -->
-        <a href="#" class="btn-steam" id="download-btn">Carregando...</a>
+        <a href="https://1024terabox.com/s/1wkbMoJcuWJK-cA6J7Pj9aA" class="btn-steam" target="_blank" rel="noopener">Baixar Agora</a>
     </section>
 
     <!-- ===== SOBRE ===== -->
@@ -473,22 +472,22 @@
                 <h3>Mínimos</h3>
                 <ul>
                     <li><strong>SO:</strong> Windows 10 64-bit</li>
-                    <li><strong>Processador:</strong> Intel Core i5-4460 / AMD FX-6300</li>
+                    <li><strong>Processador:</strong> Intel Core i3-8100 / AMD Ryzen 3 2200G</li>
                     <li><strong>Memória:</strong> 8 GB de RAM</li>
-                    <li><strong>Placa de Vídeo:</strong> NVIDIA GTX 960 / AMD R9 280</li>
+                    <li><strong>Placa de Vídeo:</strong> NVIDIA GTX 960 / AMD RX 560 (4 GB)</li>
                     <li><strong>DirectX:</strong> Versão 11</li>
-                    <li><strong>Armazenamento:</strong> 20 GB disponíveis</li>
+                    <li><strong>Armazenamento:</strong> 5 GB disponíveis</li>
                 </ul>
             </div>
             <div class="req-card">
                 <h3>Recomendados</h3>
                 <ul>
                     <li><strong>SO:</strong> Windows 10/11 64-bit</li>
-                    <li><strong>Processador:</strong> Intel Core i7-8700 / AMD Ryzen 5 3600</li>
+                    <li><strong>Processador:</strong> Intel Core i5-4690 @ 3.50GHz / AMD Ryzen 5 1600</li>
                     <li><strong>Memória:</strong> 16 GB de RAM</li>
-                    <li><strong>Placa de Vídeo:</strong> NVIDIA GTX 1060 / AMD RX 580</li>
+                    <li><strong>Placa de Vídeo:</strong> AMD Radeon RX 580 2048SP (8 GB) / NVIDIA GTX 1060</li>
                     <li><strong>DirectX:</strong> Versão 12</li>
-                    <li><strong>Armazenamento:</strong> 20 GB (SSD recomendado)</li>
+                    <li><strong>Armazenamento:</strong> 5 GB em SSD</li>
                 </ul>
             </div>
         </div>
@@ -498,7 +497,7 @@
     <section class="cta-final">
         <h2>Pronto para Sobreviver?</h2>
         <p>Baixe agora e comece sua jornada em um mundo implacável.</p>
-        <a href="#" class="btn-steam" id="download-btn-2">Carregando...</a>
+        <a href="https://1024terabox.com/s/1wkbMoJcuWJK-cA6J7Pj9aA" class="btn-steam" target="_blank" rel="noopener">Baixar Agora</a>
     </section>
 
     <!-- ===== RODAPÉ ===== -->
@@ -511,51 +510,6 @@
             <a href="#">YouTube</a>
         </div>
     </footer>
-
-    <!-- ===== SCRIPT DE DOWNLOAD DIRETO DO TERABOX ===== -->
-    <script>
-        (async function setupDownload() {
-            const shareUrl = 'https://1024terabox.com/s/1wkbMoJcuWJK-cA6J7Pj9aA';
-            const apiUrl = `https://terabox-worker.robinkumarshakya103.workers.dev/api?url=${encodeURIComponent(shareUrl)}`;
-
-            const buttons = [
-                document.getElementById('download-btn'),
-                document.getElementById('download-btn-2')
-            ];
-
-            try {
-                const response = await fetch(apiUrl);
-                const data = await response.json();
-
-                // Verifica se a API retornou o link direto
-                if (data && data.files && data.files.length > 0 && data.files[0].download_url) {
-                    const directLink = data.files[0].download_url;
-
-                    buttons.forEach(btn => {
-                        if (btn) {
-                            btn.href = directLink;
-                            btn.textContent = 'Baixar Agora';
-                            btn.target = '_blank';
-                            btn.rel = 'noopener';
-                        }
-                    });
-                } else {
-                    throw new Error('Link direto não encontrado na resposta da API.');
-                }
-            } catch (error) {
-                console.error('Erro ao buscar link do TeraBox:', error);
-                // Fallback: se a API falhar, redireciona para o link de compartilhamento
-                buttons.forEach(btn => {
-                    if (btn) {
-                        btn.href = shareUrl;
-                        btn.textContent = 'Baixar no TeraBox';
-                        btn.target = '_blank';
-                        btn.rel = 'noopener';
-                    }
-                });
-            }
-        })();
-    </script>
 
 </body>
 </html>
